@@ -12,3 +12,21 @@ workbox.routing.registerRoute(
 		cacheName: 'placeholder-cache',
 	})
 )
+
+const showNotification = () => {
+	console.log('GG')
+    self.registration.showNotification('Background sync success!', {
+        body: '🎉`🎉`🎉`',
+    })
+}
+
+const bgSyncPlugin = new workbox.backgroundSync.Plugin('create-user-queue', {
+	maxRetentionTime: 24 * 60,
+	onSync: showNotification,
+})
+
+const networkWithBackgroundSync = new workbox.strategies.NetworkOnly({
+	plugins: [bgSyncPlugin],
+})
+
+workbox.routing.registerRoute(matchFunction, networkWithBackgroundSync, 'POST')

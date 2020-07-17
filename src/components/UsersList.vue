@@ -4,7 +4,7 @@
       <h2>List of users</h2>
       <ul>
         <li v-for="user in users" :key="user.id">
-          <router-link :to="`/offline-support/user/${user.id}`">
+          <router-link :to="{ name: 'User', params: { id: user.id }}">
             <p>Name: {{ user.name }}</p>
             <p>User: {{ user.username }}</p>
             <p>Email: {{ user.email }}</p>

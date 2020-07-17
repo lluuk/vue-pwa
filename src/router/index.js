@@ -11,18 +11,12 @@ Vue.use(VueRouter)
     component: Home
   },
   {
-    path: '/offline-support',
-    name: 'Offline',
+    path: '/user/:id',
+    name: 'User',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "offline" */ '../views/Offline.vue'),
-    children: [
-      {
-        path: 'user/:id',
-        component: () => import(/* webpackChunkName: "offline-user" */ '../views/OfflineUser.vue'),
-      }
-    ]
+    component: () => import(/* webpackChunkName: "offline-user" */ '../views/User.vue'),
   }
 ]
 
