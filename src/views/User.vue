@@ -22,11 +22,14 @@
 			return { user: null }
 		},
 		async created() {
-			await fetch(
-				`https://jsonplaceholder.typicode.com/users/${this.$route.params.id}`
-			)
-				.then((response) => response.json())
-				.then((user) => (this.user = user))
+			try {
+				const data = await fetch(
+					`https://jsonplaceholder.typicode.com/users/${this.$route.params.id}`
+				)
+				this.user = await data.json() 
+			} catch (e) {
+				console.warn(e)
+			}
 		},
 
 		computed: {
