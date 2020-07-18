@@ -16,7 +16,7 @@
     <a href="https://github.com/lluuk/vue-pwa"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/lluuk/vue-pwa">View Demo</a>
+    <a href="https://vue-pwa-features.netlify.app/">View Demo</a>
   </p>
 </p>
 
