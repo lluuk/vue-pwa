@@ -12,12 +12,19 @@
 			<p>Company: {{ user.company.name }}</p>
 		</div>
 
-		<button @click="handleAddUser">Add new user</button>
+		<AddUser />
+		<UserNotification />
 	</div>
 </template>
 
 <script>
+	import AddUser from '@/components/AddUser'
+	import UserNotification from '@/components/UserNotification'
 	export default {
+		components: {
+			AddUser,
+			UserNotification,
+		},
 		data() {
 			return { user: null }
 		},
@@ -26,7 +33,7 @@
 				const data = await fetch(
 					`https://jsonplaceholder.typicode.com/users/${this.$route.params.id}`
 				)
-				this.user = await data.json() 
+				this.user = await data.json()
 			} catch (e) {
 				console.warn(e)
 			}
@@ -39,33 +46,6 @@
 				const { street, city } = this.user.address
 
 				return `${street}, ${city}`
-			},
-		},
-
-		methods: {
-			async handleAddUser() {
-				Notification.requestPermission()
-				try {
-					const data = await fetch(
-						'https://jsonplaceholder.typicode.com/users',
-						{
-							method: 'POST',
-							body: JSON.stringify({
-								name: 'test',
-								email: 'test@test.com',
-								userId: 11,
-							}),
-							headers: {
-								'Content-type':
-									'application/json; charset=UTF-8',
-							},
-						}
-					)
-					const user = await data.json()
-					console.log({ user })
-				} catch (e) {
-					console.warn(e)
-				}
 			},
 		},
 	}
