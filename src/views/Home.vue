@@ -4,12 +4,6 @@
 		<h1 class="home__title">
 			This is a Proggressive Web Application built with Vue
 		</h1>
-		<h2 class="home__subtitle">Features</h2>
-		<ul>
-			<li class="home__list-item">
-				Offline support
-			</li>
-		</ul>
 		<UsersList />
 	</div>
 </template>
@@ -27,7 +21,6 @@
 	.home__title {
 		margin-bottom: 50px;
 	}
-	.home__subtitle,
 	.home__list-item {
 		text-align: left;
 	}
