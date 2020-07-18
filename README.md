@@ -39,7 +39,10 @@
 <!--[![Product Name Screen Shot][product-screenshot]](https://example.com)-->
 
 **Vue-PWA is the application full of PWA features:**
+* Precache files
 * Offline support
+* Background sync
+* Push notifications
 * WIP
 
 
