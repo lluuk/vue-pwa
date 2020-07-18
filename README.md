@@ -39,6 +39,7 @@
 <!--[![Product Name Screen Shot][product-screenshot]](https://example.com)-->
 
 **Vue-PWA is the application full of PWA features:**
+* Add to Homescreen
 * Precache files
 * Offline support
 * Background sync
