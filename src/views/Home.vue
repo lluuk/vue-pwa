@@ -13,7 +13,7 @@
 		name: 'Home',
 		components: {
 			UsersList: () => import('@/components/UsersList'),
-    },
+		},
 	}
 </script>
 

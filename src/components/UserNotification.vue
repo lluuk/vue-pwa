@@ -12,17 +12,12 @@
 		},
 		methods: {
 			async handlePushNotication() {
-				Notification.requestPermission((status) => {
-					console.log('Notification permission status:', status)
-				})
+				Notification.requestPermission()
 				if (Notification.permission === 'granted') {
 					navigator.serviceWorker
 						.getRegistration()
 						.then((registration) => {
-							if (registration == undefined) {
-								console.log('only works online')
-								return
-							}
+							if (registration == undefined) return
 							const options = {
 								body: 'Test notification!',
 								icon: './img/logo.82b9c7a5.png',
