@@ -6,9 +6,17 @@
 		<div id="content">
 			<router-view />
 		</div>
-		<div class="bottom-nav" v-if="showInstallBanner">
-			<BaseButton @click="handleShowInstallPromotion"
+		<div class="bottom-nav" v-if="showInstallBanner || updateExists">
+			<BaseButton
+				v-if="showInstallBanner"
+				@click="handleShowInstallPromotion"
 				>Install App</BaseButton
+			>
+			<BaseButton
+				theme="outlined"
+				v-if="updateExists"
+				@click="handleRefreshApp"
+				>New version available! Click to update</BaseButton
 			>
 		</div>
 	</div>
@@ -21,17 +29,20 @@
 		components: { BaseButton },
 		data() {
 			return {
-        deferredPrompt: null,
+				deferredPrompt: null,
 				showInstallBanner: false,
+				updateExists: false,
+				refreshing: false,
+				registration: null,
 			}
 		},
 		mounted() {
-      window.addEventListener('beforeinstallprompt', (e) => {
-        console.log('beforeinstallprompt')
+			window.addEventListener('beforeinstallprompt', (e) => {
 				e.preventDefault()
 				this.deferredPrompt = e
 				this.showInstallBanner = true
-			})
+      })
+      
 			window.addEventListener(
 				'appinstalled',
 				async () => await this.handleAppInstall()
@@ -44,8 +55,18 @@
 				) {
 					this.showInstallBanner = false
 				} else {
-          this.showInstallBanner = true
-        }
+					this.showInstallBanner = true
+				}
+			})
+
+			document.addEventListener('swUpdated', this.showRefreshUI, {
+				once: true,
+      })
+      
+			navigator.serviceWorker.addEventListener('controllerchange', () => {
+				if (this.refreshing) return
+				this.refreshing = true
+				window.location.reload()
 			})
 		},
 
@@ -76,7 +97,7 @@
 			},
 
 			handleShowInstallPromotion() {
-        if (!this.deferredPrompt) return
+				if (!this.deferredPrompt) return
 				this.deferredPrompt.prompt()
 				this.deferredPrompt.userChoice.then((choiceResult) => {
 					if (choiceResult.outcome === 'accepted') {
@@ -86,6 +107,19 @@
 					}
 					this.deferredPrompt = null
 				})
+			},
+
+			showRefreshUI(e) {
+				this.registration = e.detail
+				this.updateExists = true
+			},
+
+			handleRefreshApp() {
+				this.updateExists = false
+				if (!this.registration || !this.registration.waiting) {
+					return
+				}
+				this.registration.waiting.postMessage('skipWaiting')
 			},
 		},
 	}

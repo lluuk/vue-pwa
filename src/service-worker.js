@@ -1,10 +1,25 @@
 /* eslint-disable no-undef */
 self.__precacheManifest = [].concat(self.__precacheManifest || [])
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {})
+workbox.core.clientsClaim()
 
 const matchFunction = ({ url }) => {
 	return url.href.includes('https://jsonplaceholder.typicode.com/users')
 }
+
+self.addEventListener('message', (e) => {
+	if (!e.data) {
+		return
+	}
+
+	switch (e.data) {
+		case 'skipWaiting':
+			self.skipWaiting()
+			break
+		default:
+			break
+	}
+})
 
 workbox.routing.registerRoute(
 	matchFunction,

@@ -44,7 +44,7 @@
 * Offline support
 * Background sync
 * Push notifications
-* WIP
+* Control over app updates
 
 
 ### Built With
@@ -99,6 +99,6 @@ Work in progress
 <!-- CONTACT -->
 ## Contact
 
-Łukasz - [@luuuk_17](https://twitter.com/luuuk_17) - luk.zapolski@gmail.com - [personal-website](https://lukzapolski.netlify.app)
+Łukasz - [@luuuk_17](https://twitter.com/luuuk_17) - luk.zapolski@gmail.com - [Personal Website](https://lukzapolski.com)
 
 Project Link: [https://github.com/lluuk/vue-pwa](https://github.com/lluuk/vue-pwa)
